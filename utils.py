@@ -8,6 +8,7 @@ def plot_loss(train_loss, val_loss):
     plt.grid()
     plt.xlabel("Epochs")
     plt.ylabel("Loss")
+    plt.title("Training and Validation Loss Curves")
     plt.show()
 
 def to_one_hot(labels, num_classes):
