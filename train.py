@@ -35,5 +35,4 @@ def train(model, X, y, batch_size=32, epochs=1, val_split=0.0, loss_fn=None, opt
 
             train_loss_array.append(loss.item())
             val_loss_array.append(val_loss.item())
-
-    return train_loss_array, val_loss_array
+            return train_loss_array, val_loss_array
