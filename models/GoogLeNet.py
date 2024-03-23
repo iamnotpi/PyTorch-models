@@ -66,7 +66,7 @@ class GoogLeNet(nn.Module):
             InceptionModule(832, 384, 192, 384, 48, 128, 128),
             nn.AvgPool2d(7),
             nn.Dropout(0.4),
-            nn.Linear(1024, 10),
+            nn.Linear(1024, 1000),
         )
     
     def forward(self, x):
