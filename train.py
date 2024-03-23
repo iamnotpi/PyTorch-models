@@ -1,3 +1,5 @@
+import torch
+
 def train(model, X, y, batch_size=32, epochs=1, val_split=0.0, loss_fn=None, optimizer=None):
     # For visualization
     train_loss_array = []
@@ -24,10 +26,10 @@ def train(model, X, y, batch_size=32, epochs=1, val_split=0.0, loss_fn=None, opt
             loss += batch_loss
         loss /= batches
 
-        if val_split:
+        if val_split != 0:
             X_val = X[:val_size]
             y_val = y[:val_size]
-            model_0.eval() # Evaluation mode
+            model.eval() # Evaluation mode
             with torch.inference_mode():
                 y_val_logits = model(X_val).squeeze()
                 val_loss = loss_fn(y_val_logits, y_val)
@@ -35,4 +37,5 @@ def train(model, X, y, batch_size=32, epochs=1, val_split=0.0, loss_fn=None, opt
 
             train_loss_array.append(loss.item())
             val_loss_array.append(val_loss.item())
-            return train_loss_array, val_loss_array
+        
+    return train_loss_array, val_loss_array if val_split != 0 else train_loss_array
