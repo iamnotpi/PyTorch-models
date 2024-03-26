@@ -46,27 +46,27 @@ class InceptionModule(nn.Module):
         )
 
 class GoogLeNet(nn.Module):
-    def __init__(self):
+    def __init__(self, num_classes):
         super().__init__()
         self.main_layer = nn.Sequential(
-            Conv2dWithActivation(3, 64, 7, stride=2),
-            nn.MaxPool2d(3, 2),
-            Conv2dWithActivation(64, 192, 3),
-            nn.MaxPool2d(3, 2),
+            Conv2dWithActivation(3, 64, 7, padding=3, stride=2),
+            nn.MaxPool2d(3, 2, padding=1),
+            Conv2dWithActivation(64, 192, 3, padding=1),
+            nn.MaxPool2d(3, 2, padding=1),
             InceptionModule(192, 64, 96, 128, 16, 32, 32),
             InceptionModule(256, 128, 128, 192, 32, 96, 64),
-            nn.MaxPool2d(3, 2),
+            nn.MaxPool2d(3, 2, padding=1),
             InceptionModule(480, 192, 96, 208, 16, 48, 64),
             InceptionModule(512, 160, 112, 224, 24, 64, 64),
             InceptionModule(512, 128, 128, 256, 24, 64, 64),
             InceptionModule(512, 112, 144, 288, 32, 64, 64),
             InceptionModule(528, 256, 160, 320, 32, 128, 128),
-            nn.MaxPool2d(3, 2),
+            nn.MaxPool2d(3, 2, padding=1),
             InceptionModule(832, 256, 160, 320, 32, 128, 128),
             InceptionModule(832, 384, 192, 384, 48, 128, 128),
             nn.AvgPool2d(7),
             nn.Dropout(0.4),
-            nn.Linear(1024, 1000),
+            nn.Linear(1024, num_classes),
         )
     
     def forward(self, x):
