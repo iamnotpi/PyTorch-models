@@ -1,3 +1,5 @@
+### Simple train function for PyTorch neural nets (assume that the data has already been shuffled)
+
 import torch
 
 def train(model, X, y, batch_size=32, epochs=1, val_split=0.0, loss_fn=None, optimizer=None):
